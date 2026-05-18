@@ -6,6 +6,7 @@ Tema elegido: **CLI de Gestión de Tareas (ToDo)** con persistencia en JSON y ex
 - [SPEC.md](SPEC.md): lista de requerimientos (lo que el sistema *debe* hacer).
 - [PROMPTS.md](PROMPTS.md): prompts utilizados y la IA usada (**GPT-5.2**).
 - [ANALISIS.md](ANALISIS.md): resultado + análisis (verificación de cumplimiento y qué haría para solventar fallas).
+- [AI_AUTOMATION.md](AI_AUTOMATION.md): conexión automática GitHub ↔ IA (workflow que genera PR desde requerimientos).
 - Código en `src/` y pruebas en `tests/`.
 
 ## Cómo ejecutar
@@ -53,6 +54,10 @@ py -3 -m todo_cli export tasks.csv
 2) IA: GitHub Copilot Chat (GPT-5.2) lee requisitos y genera código + pruebas (ver [PROMPTS.md](PROMPTS.md)).
 3) La IA/ingeniería valida ejecutando `pytest` (evidencia en [ANALISIS.md](ANALISIS.md)).
 4) Con CI/CD: este repo incluye un pipeline de ejemplo en GitHub Actions (ver `.github/workflows/ci.yml`) que corre `pytest` en cada push/PR.
+
+Conexión automática (interpretación estricta del profe):
+- Workflow: `.github/workflows/ai-sdd.yml` (ejecución manual) lee requerimientos y abre un PR usando un LLM (ChatGPT/Claude) via Secrets.
+- Guía: [AI_AUTOMATION.md](AI_AUTOMATION.md).
 
 ## Troubleshooting
 - Si `pip install` muestra `ERROR: Operation cancelled by user`, normalmente es porque el proceso recibió un **cancel/interrupt** (Ctrl+C / botón Stop del terminal) o el directorio está bajo control/sincronización (p. ej. OneDrive/Documentos con políticas).

@@ -8,6 +8,10 @@ Conexión “Git ↔ IA” (según el marco SDD del parcial):
 - La IA usada fue **GitHub Copilot Chat (GPT-5.2)** en VS Code, leyendo esos archivos del repo para proponer/generar el código y las pruebas.
 - La evidencia de esa interacción se deja registrada como trazabilidad en [PROMPTS.md](PROMPTS.md).
 
+Conexión “GitHub ↔ IA” automática (interpretación estricta):
+- Se incluyó un workflow `.github/workflows/ai-sdd.yml` que puede ejecutar un agente (ChatGPT/Claude) leyendo `SPEC.md` y abriendo un Pull Request automáticamente.
+- La configuración (Secrets) y el procedimiento están documentados en [AI_AUTOMATION.md](AI_AUTOMATION.md).
+
 ## 2) Evidencia de verificación
 Criterio CA-01: ejecutar `pytest` debe pasar.
 - Evidencia: ejecutar `pytest -q` en el proyecto.
@@ -42,5 +46,5 @@ Ejemplos de fallas típicas y mitigación:
 - Corrupción JSON: manejo de errores y mensaje que sugiera borrar/recuperar archivo.
 
 ## 5) Limitaciones
-- No hay una ejecución *automática* de IA dentro del pipeline (no se llama a un modelo desde Actions). La integración con IA fue asistida/manual (prompts), y el pipeline automatiza la validación con tests.
+- Para ejecutar IA automáticamente en Actions se requieren Secrets (API keys) que no se incluyen en el repo por seguridad.
 - Persistencia es local (JSON), no multiusuario.
