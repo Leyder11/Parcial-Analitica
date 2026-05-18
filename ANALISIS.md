@@ -3,6 +3,11 @@
 ## 1) Resultado realizado
 Se implementó una CLI de gestión de tareas en Python con persistencia local (JSON), comandos CRUD básicos y exportación a CSV. Se incluyeron pruebas automatizadas (pytest) para validar el cumplimiento del SPEC.
 
+Conexión “Git ↔ IA” (según el marco SDD del parcial):
+- Los requerimientos viven versionados en el repo (SPEC/README).
+- La IA usada fue **GitHub Copilot Chat (GPT-5.2)** en VS Code, leyendo esos archivos del repo para proponer/generar el código y las pruebas.
+- La evidencia de esa interacción se deja registrada como trazabilidad en [PROMPTS.md](PROMPTS.md).
+
 ## 2) Evidencia de verificación
 Criterio CA-01: ejecutar `pytest` debe pasar.
 - Evidencia: ejecutar `pytest -q` en el proyecto.
@@ -37,5 +42,5 @@ Ejemplos de fallas típicas y mitigación:
 - Corrupción JSON: manejo de errores y mensaje que sugiera borrar/recuperar archivo.
 
 ## 5) Limitaciones
-- No hay CI/CD real configurado (se describe conceptualmente). Se ejecuta localmente.
+- No hay una ejecución *automática* de IA dentro del pipeline (no se llama a un modelo desde Actions). La integración con IA fue asistida/manual (prompts), y el pipeline automatiza la validación con tests.
 - Persistencia es local (JSON), no multiusuario.
