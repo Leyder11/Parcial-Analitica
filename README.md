@@ -24,6 +24,11 @@ py -3 -m venv .venv
 pip install -r requirements-dev.txt
 ```
 
+### 2.1) Instalar el paquete (para que `python -m todo_cli` funcione)
+```powershell
+pip install -e .
+```
+
 ### 3) Ejecutar pruebas
 ```powershell
 pytest -q
