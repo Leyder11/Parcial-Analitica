@@ -8,6 +8,9 @@ Criterio CA-01: ejecutar `pytest` debe pasar.
 - Evidencia: ejecutar `pytest -q` en el proyecto.
 - Resultado observado (Windows, venv): `7 passed in 0.15s`.
 
+Validación CI (opcional, alineado a CI/CD):
+- GitHub Actions ejecutó el workflow `CI` en push/PR y terminó en **Success** (matriz Python 3.10/3.11/3.12).
+
 Criterio CA-02: flujo mínimo add → list → done → list → delete → export.
 - Evidencia: pruebas automatizadas + ejecución manual opcional.
 

@@ -21,17 +21,20 @@ py -3 -m venv .venv
 
 ### 2) Instalar dependencias de desarrollo (pytest)
 ```powershell
-pip install -r requirements-dev.txt
+.
+venv\Scripts\python -m pip install -r requirements-dev.txt
 ```
 
 ### 2.1) Instalar el paquete (para que `python -m todo_cli` funcione)
 ```powershell
-pip install -e .
+.
+venv\Scripts\python -m pip install -e .
 ```
 
 ### 3) Ejecutar pruebas
 ```powershell
-pytest -q
+.
+venv\Scripts\python -m pytest -q
 ```
 
 ### 4) Usar la CLI
