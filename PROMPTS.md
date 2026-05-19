@@ -38,3 +38,45 @@ Cubre add/list filtros/done/delete/export.
 """
 Estas son las fallas de pytest (pego el output). Propón el fix mínimo en el módulo correcto sin romper otros tests.
 """
+
+## Prompt 5 — Nuevo requerimiento (RF-08: edit)
+**IA:** GPT-5.2
+
+"""
+Contexto: ya existe una CLI ToDo en Python con `argparse` y storage JSON.
+
+Necesito implementar el requerimiento RF-08 en SPEC.md:
+- Comando: edit <id> <nuevo_titulo>
+- Validación: nuevo_titulo no puede ser vacío
+- Error: si el id no existe, mostrar error claro
+
+Restricciones:
+- Cambios mínimos.
+- Mantener compatibilidad con comandos existentes: add/list/done/delete/export.
+- Actualizar solo los archivos necesarios.
+
+Entrega:
+1) Cambios propuestos por archivo (cli.py, storage.py, tests).
+2) Código completo de las funciones/bloques modificados.
+"""
+
+## Prompt 6 — Pruebas para RF-08
+**IA:** GPT-5.2
+
+"""
+Genera pruebas pytest para RF-08 (edit):
+- Caso feliz: add -> edit 1 "Nuevo título" -> list --all muestra el título nuevo.
+- Caso error: edit con id inexistente retorna exit code 2 y mensaje contiene "no existe".
+
+Usa tmp_path y llama a `run([...])` igual que en tests existentes.
+"""
+
+## Prompt 7 — Verificación y reporte
+**IA:** GPT-5.2
+
+"""
+Te pego el output de `pytest -q` (y/o el error si falla).
+
+1) Si falla: indica el fix mínimo y en qué archivo aplicarlo.
+2) Si pasa: resume qué cambió y cómo demuestra cumplimiento de RF-08.
+"""

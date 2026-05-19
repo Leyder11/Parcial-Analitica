@@ -58,3 +58,18 @@ Debes habilitar permisos de escritura para el token automático de Actions:
 2) En **Workflow permissions** selecciona **Read and write permissions**
 3) Activa **Allow GitHub Actions to create and approve pull requests**
 4) Guarda y vuelve a ejecutar el workflow.
+
+## 7) Si falla por cuota / créditos (OpenAI o Anthropic)
+Si el workflow falla dentro del step de `aider` con mensajes como:
+
+- OpenAI: "You exceeded your current quota" / "check your plan and billing"
+- Anthropic: "Your credit balance is too low" / "Plans & Billing"
+
+Significa que la API key es válida, pero la cuenta/proyecto **no tiene crédito/cuota** para hacer requests.
+
+Qué hacer:
+- Verifica en el panel del proveedor (OpenAI Platform o Anthropic Console) que tengas **Billing/credits** activos.
+- Si usas OpenAI Platform, recuerda que **ChatGPT Plus no incluye créditos de API**; la facturación de API es aparte.
+- Vuelve a ejecutar el workflow cuando tengas crédito.
+
+Tip de evidencia: descarga el artifact `aider-log` del run fallido y úsalo como prueba del motivo de falla.

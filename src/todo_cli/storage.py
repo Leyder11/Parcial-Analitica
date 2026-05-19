@@ -67,3 +67,16 @@ class JsonTaskStore:
         if len(new_tasks) == len(tasks):
             raise NotFoundError(f"No existe tarea con id={task_id}")
         self.save(new_tasks)
+
+    def update_title(self, task_id: int, new_title: str) -> Task:
+        tasks = self.load()
+        updated: Optional[Task] = None
+        for idx, task in enumerate(tasks):
+            if task.id == task_id:
+                updated = replace(task, title=new_title)
+                tasks[idx] = updated
+                break
+        if updated is None:
+            raise NotFoundError(f"No existe tarea con id={task_id}")
+        self.save(tasks)
+        return updated

@@ -52,6 +52,26 @@ def test_export_csv(tmp_path: Path) -> None:
     assert rows[0]["title"] == "Exportable"
 
 
+def test_edit_title(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    db = tmp_path / "tasks.json"
+
+    assert run(["--db", str(db), "add", "Titulo viejo"]) == 0
+    assert run(["--db", str(db), "edit", "1", "Nuevo", "titulo"]) == 0
+
+    assert run(["--db", str(db), "list", "--all"]) == 0
+    out = capsys.readouterr().out
+    assert "Nuevo titulo" in out
+
+
+def test_edit_not_found(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    db = tmp_path / "tasks.json"
+
+    code = run(["--db", str(db), "edit", "999", "X"]) 
+    assert code == 2
+    err = capsys.readouterr().err
+    assert "no existe" in err.lower()
+
+
 @pytest.mark.parametrize(
     "argv, expected",
     [

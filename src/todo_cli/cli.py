@@ -36,6 +36,10 @@ def build_parser() -> argparse.ArgumentParser:
     done_p = sub.add_parser("done", help="Marcar como completada")
     done_p.add_argument("id", type=int)
 
+    edit_p = sub.add_parser("edit", help="Editar título")
+    edit_p.add_argument("id", type=int)
+    edit_p.add_argument("title", nargs="+", help="Nuevo título")
+
     del_p = sub.add_parser("delete", help="Eliminar tarea")
     del_p.add_argument("id", type=int)
 
@@ -94,6 +98,12 @@ def run(argv: Optional[List[str]] = None) -> int:
         if args.command == "done":
             updated = store.mark_done(args.id)
             print(f"OK: tarea id={updated.id} completada")
+            return 0
+
+        if args.command == "edit":
+            new_title = validate_title(" ".join(args.title))
+            updated = store.update_title(args.id, new_title)
+            print(f"OK: tarea id={updated.id} actualizada")
             return 0
 
         if args.command == "delete":
