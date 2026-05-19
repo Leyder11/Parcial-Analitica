@@ -5,6 +5,7 @@ El profe pidió que el Git esté **conectado** a una IA de forma automática. En
 - Un workflow de GitHub Actions que puede ejecutarse manualmente (`workflow_dispatch`).
 - El workflow lee `SPEC.md` (o cualquier archivo de requerimientos) y ejecuta un agente tipo **aider** (soporta GPT/Claude) para proponer cambios.
 - El workflow crea un **Pull Request** automático con los cambios.
+- El workflow ejecuta **pruebas (`pytest`)** y **solo** crea el PR si los tests pasan.
 
 > Importante: por seguridad, el repo **no** incluye llaves. Las llaves se configuran como **GitHub Secrets**.
 
@@ -29,6 +30,13 @@ Repo → **Actions** → workflow **AI SDD (SPEC → PR)** → **Run workflow**.
 Inputs:
 - `requirements_file`: por defecto `SPEC.md`
 - `instructions`: mensaje corto con lo que quieres implementar (ej: "Implementa RF-08: editar título de tarea")
+
+Flujo recomendado (lo que el profe describe):
+1) Editar `SPEC.md` y agregar un requerimiento nuevo (RF-XX).
+2) Hacer commit + push.
+3) Ejecutar **AI SDD (SPEC → PR)** indicando `instructions` = "Implementa RF-XX".
+4) Revisar el PR creado por la IA.
+5) Ver CI en verde en el PR.
 
 ## 4) Evidencia para el parcial
 - Captura de pantalla de:
