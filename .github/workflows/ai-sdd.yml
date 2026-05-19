@@ -11,6 +11,10 @@ on:
         description: "Qué debe implementar la IA (mensaje corto)."
         required: true
         default: "Implementa RF-08: agrega comando edit <id> <nuevo_titulo>, valida no vacío, error si id no existe, y agrega tests en tests/test_todo_cli.py. Mantén pytest -q en verde."
+      model:
+        description: "(Opcional) Modelo a usar en aider. Ej: gpt-4o-mini o claude-3-haiku-20240307"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -63,10 +67,28 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          set -euo pipefail
+          echo "aider version:" 
+          aider --version || true
+
+          MODEL_INPUT="${{ inputs.model }}"
+          MODEL_ARGS=""
+          if [ -n "$MODEL_INPUT" ]; then
+            MODEL_ARGS="--model $MODEL_INPUT"
+            echo "Using model: $MODEL_INPUT"
+          fi
+
           # Aider will pick an available provider based on which key is set.
           # It will edit files in-place.
           # Avoid letting aider create commits in CI; the PR action will commit changes.
-          aider --yes --no-auto-commits --message-file "$RUNNER_TEMP/ai_instructions.md" ${{ inputs.requirements_file }} README.md src/todo_cli/cli.py src/todo_cli/storage.py src/todo_cli/utils.py tests/test_todo_cli.py
+          aider $MODEL_ARGS --yes --no-auto-commits --message-file "$RUNNER_TEMP/ai_instructions.md" ${{ inputs.requirements_file }} README.md src/todo_cli/cli.py src/todo_cli/storage.py src/todo_cli/utils.py tests/test_todo_cli.py 2>&1 | tee "$RUNNER_TEMP/aider.log"
+
+      - name: Upload aider log (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aider-log
+          path: ${{ runner.temp }}/aider.log
 
       - name: Show changes (for evidence)
         run: |
