@@ -10,7 +10,7 @@ on:
       instructions:
         description: "Qué debe implementar la IA (mensaje corto)."
         required: true
-        default: "Revisar SPEC.md y proponer mejoras mínimas manteniendo tests en verde."
+        default: "Implementa RF-08: agrega comando edit <id> <nuevo_titulo>, valida no vacío, error si id no existe, y agrega tests en tests/test_todo_cli.py. Mantén pytest -q en verde."
 
 permissions:
   contents: write
@@ -41,6 +41,9 @@ jobs:
           echo "${{ inputs.instructions }}" >> "$PROMPT_FILE"
           echo "" >> "$PROMPT_FILE"
           echo "### Requirements file: ${{ inputs.requirements_file }}" >> "$PROMPT_FILE"
+          echo "" >> "$PROMPT_FILE"
+          echo "### Requirements content" >> "$PROMPT_FILE"
+          cat "${{ inputs.requirements_file }}" >> "$PROMPT_FILE"
           echo "" >> "$PROMPT_FILE"
           echo "Please read the requirements and implement the requested changes." >> "$PROMPT_FILE"
           echo "Then run tests (pytest) and keep them passing." >> "$PROMPT_FILE"
