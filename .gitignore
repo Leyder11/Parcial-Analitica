@@ -6,6 +6,10 @@ __pycache__/
 # Packaging metadata
 *.egg-info/
 
+# AI tooling (aider)
+.aider*
+.aider/
+
 # Virtualenv
 .venv/
 

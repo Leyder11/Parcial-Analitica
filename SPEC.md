@@ -24,6 +24,11 @@ RF-06. El sistema **debe** permitir **exportar** todas las tareas a un archivo C
 
 RF-07. El sistema **debe** persistir los datos en un archivo JSON. Si no existe, **debe** crearlo automáticamente.
 
+RF-08. El sistema **debe** permitir **editar el título** de una tarea por `id`.
+- Comando: `edit <id> <nuevo_titulo>`
+- Validación: `nuevo_titulo` no puede ser vacío
+- Error: si el `id` no existe, mostrar error claro
+
 ## 3) Requerimientos no funcionales
 RNF-01. Debe incluir pruebas automatizadas (pytest) que validen RF-01..RF-07.
 
@@ -44,3 +49,8 @@ CA-02. Flujo mínimo:
 4) `list --done` la muestra
 5) `delete 1` la elimina
 6) `export out.csv` genera un CSV con encabezados
+
+CA-03. Edición de título:
+1) `add` crea tarea con `id` 1
+2) `edit 1 "Nuevo título"` actualiza el título
+3) `list --all` muestra el título actualizado

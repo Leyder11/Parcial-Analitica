@@ -36,13 +36,14 @@ jobs:
 
       - name: Prepare prompt
         run: |
-          echo "### Instructions" > .ai_instructions.md
-          echo "${{ inputs.instructions }}" >> .ai_instructions.md
-          echo "" >> .ai_instructions.md
-          echo "### Requirements file: ${{ inputs.requirements_file }}" >> .ai_instructions.md
-          echo "" >> .ai_instructions.md
-          echo "Please read the requirements and implement the requested changes." >> .ai_instructions.md
-          echo "Then run tests (pytest) and keep them passing." >> .ai_instructions.md
+          PROMPT_FILE="$RUNNER_TEMP/ai_instructions.md"
+          echo "### Instructions" > "$PROMPT_FILE"
+          echo "${{ inputs.instructions }}" >> "$PROMPT_FILE"
+          echo "" >> "$PROMPT_FILE"
+          echo "### Requirements file: ${{ inputs.requirements_file }}" >> "$PROMPT_FILE"
+          echo "" >> "$PROMPT_FILE"
+          echo "Please read the requirements and implement the requested changes." >> "$PROMPT_FILE"
+          echo "Then run tests (pytest) and keep them passing." >> "$PROMPT_FILE"
 
       - name: Run aider (edits repo)
         env:
@@ -51,7 +52,7 @@ jobs:
         run: |
           # Aider will pick an available provider based on which key is set.
           # It will edit files in-place.
-          aider --yes --message-file .ai_instructions.md ${{ inputs.requirements_file }} README.md src/todo_cli/cli.py src/todo_cli/storage.py src/todo_cli/utils.py tests/test_todo_cli.py
+          aider --yes --message-file "$RUNNER_TEMP/ai_instructions.md" ${{ inputs.requirements_file }} README.md src/todo_cli/cli.py src/todo_cli/storage.py src/todo_cli/utils.py tests/test_todo_cli.py
 
       - name: Run tests (must pass)
         run: |

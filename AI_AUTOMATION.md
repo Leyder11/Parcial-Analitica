@@ -38,6 +38,8 @@ Flujo recomendado (lo que el profe describe):
 4) Revisar el PR creado por la IA.
 5) Ver CI en verde en el PR.
 
+Tip: si ejecutas el workflow con instrucciones muy genéricas (ej. "proponer mejoras"), puede que la IA no cambie el producto y el PR salga vacío o con cambios menores. Para evidenciar el SDD, usa un RF concreto (por ejemplo RF-08: `edit`).
+
 ## 4) Evidencia para el parcial
 - Captura de pantalla de:
   - Secrets configurados (no muestres el valor)
