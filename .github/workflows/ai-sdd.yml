@@ -71,5 +71,5 @@ jobs:
             - Instructions: `${{ inputs.instructions }}`
 
             Please review carefully.
-          branch: ai/sdd-changes
+          branch: ai/sdd-${{ github.run_id }}
           delete-branch: true

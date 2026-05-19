@@ -4,7 +4,7 @@ El profe pidió que el Git esté **conectado** a una IA de forma automática. En
 
 - Un workflow de GitHub Actions que puede ejecutarse manualmente (`workflow_dispatch`).
 - El workflow lee `SPEC.md` (o cualquier archivo de requerimientos) y ejecuta un agente tipo **aider** (soporta GPT/Claude) para proponer cambios.
-- El workflow crea un **Pull Request** automático con los cambios.
+- El workflow crea un **Pull Request** automático con los cambios (una rama distinta por ejecución).
 - El workflow ejecuta **pruebas (`pytest`)** y **solo** crea el PR si los tests pasan.
 
 > Importante: por seguridad, el repo **no** incluye llaves. Las llaves se configuran como **GitHub Secrets**.
