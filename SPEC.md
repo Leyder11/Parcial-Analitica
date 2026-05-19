@@ -30,7 +30,7 @@ RF-08. El sistema **debe** permitir **editar el título** de una tarea por `id`.
 - Error: si el `id` no existe, mostrar error claro
 
 ## 3) Requerimientos no funcionales
-RNF-01. Debe incluir pruebas automatizadas (pytest) que validen RF-01..RF-07.
+RNF-01. Debe incluir pruebas automatizadas (pytest) que validen RF-01..RF-08.
 
 RNF-02. La CLI debe mostrar mensajes de error claros cuando:
 - `id` no existe

@@ -65,6 +65,20 @@ jobs:
           # Avoid letting aider create commits in CI; the PR action will commit changes.
           aider --yes --no-auto-commits --message-file "$RUNNER_TEMP/ai_instructions.md" ${{ inputs.requirements_file }} README.md src/todo_cli/cli.py src/todo_cli/storage.py src/todo_cli/utils.py tests/test_todo_cli.py
 
+      - name: Show changes (for evidence)
+        run: |
+          echo "--- git status --porcelain ---"
+          git status --porcelain || true
+          echo "--- git diff --stat ---"
+          git diff --stat || true
+
+      - name: Ensure changes exist (avoid empty PR)
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "::error::No changes were produced, so no PR will be created. Use more specific instructions (e.g., implement RF-08 edit + tests)."
+            exit 1
+          fi
+
       - name: Run tests (must pass)
         run: |
           python -m pip install -r requirements-dev.txt
@@ -72,6 +86,7 @@ jobs:
           pytest -q
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -85,3 +100,12 @@ jobs:
             Please review carefully.
           branch: ai/sdd-${{ github.run_id }}
           delete-branch: true
+
+      - name: PR link (summary)
+        run: |
+          PR_URL="${{ steps.cpr.outputs.pull-request-url }}"
+          if [ -n "$PR_URL" ]; then
+            echo "Pull Request: $PR_URL" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No Pull Request was created (no URL returned)." >> "$GITHUB_STEP_SUMMARY"
+          fi
