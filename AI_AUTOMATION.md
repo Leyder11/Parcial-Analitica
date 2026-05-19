@@ -40,3 +40,11 @@ Inputs:
 ## 5) Nota de seguridad
 - Nunca comitees llaves en el repo.
 - Revisa el PR: la IA puede equivocarse.
+
+## 6) Si falla con: "GitHub Actions is not permitted to create or approve pull requests"
+Debes habilitar permisos de escritura para el token automático de Actions:
+
+1) Repo → **Settings** → **Actions** → **General**
+2) En **Workflow permissions** selecciona **Read and write permissions**
+3) Activa **Allow GitHub Actions to create and approve pull requests**
+4) Guarda y vuelve a ejecutar el workflow.
